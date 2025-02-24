@@ -1,0 +1,2 @@
+C:\Users\masci\Documents\Scuola\Ingegneria del Software\Progetti\files\imdb_top_1000.csv
+C:\Users\masci\Documents\Scuola\Ingegneria del Software\Progetti\files\output.txt

@@ -1,9 +1,11 @@
 package ch.supsi.mavendemo.core.app;
 
-import ch.supsi.mavendemo.core.core.*;
-import ch.supsi.mavendemo.core.io.CsvManager;
+import ch.supsi.mavendemo.core.io.IOManager;
 import ch.supsi.mavendemo.core.model.Movie;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,17 +13,33 @@ import static ch.supsi.mavendemo.core.core.MovieStats.*;
 
 public class Main {
     public static void main(String[] args) {
-        CsvManager csvManager = new CsvManager();
+        IOManager ioManager = new IOManager();
         List<Movie> movieList = new ArrayList<>();
 
-        csvManager.readCsv("files/imdb_top_1000.csv", movieList);
+        String[] paths = ioManager.getPreferences().split(",");
+
+        Path inputPath = Paths.get(paths[0]);
+        Path outputPath = Paths.get(paths[1]);
+
+        if(!Files.exists(inputPath)) {
+            return;
+        }
+
+        ioManager.readCsv(inputPath.toAbsolutePath().toString(), movieList);
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(totalMovies(movieList));
+        sb.append('\n');
+        sb.append(averageRuntime(movieList));
+        sb.append('\n');
+        sb.append(bestDirector(movieList));
+        sb.append('\n');
+
+        ioManager.writeFile(outputPath.toAbsolutePath().toString(), sb.toString());
 
         /*for(Movie movie : movieList){
             System.out.println(movie);
         }*/
-
-        System.out.println(totalMovies(movieList));
-        System.out.println(averageRuntime(movieList));
-        System.out.println(bestDirector(movieList));
     }
 }

@@ -6,9 +6,8 @@ import org.apache.commons.csv.CSVRecord;
 
 import java.io.*;
 import java.util.List;
-import java.util.Scanner;
 
-public class CsvManager {
+public class IOManager {
     public void readCsv(String path, List<Movie> movies){
         try {
             Reader in = new FileReader(path);
@@ -26,5 +25,34 @@ public class CsvManager {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void writeFile(String path, String text){
+        try {
+            Writer out = new FileWriter(path);
+            out.write(text);
+            out.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getPreferences(){
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("files/preferences.txt"));
+
+            String in = br.readLine(); // Read first line
+            String out = br.readLine(); // Read second line
+
+            if(in.isBlank() || out.isBlank()){
+                System.out.println("Preferences file is not complete");
+            }else{
+                return in + "," + out;
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return "";
     }
 }
