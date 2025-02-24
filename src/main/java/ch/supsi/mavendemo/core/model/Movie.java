@@ -40,4 +40,16 @@ public class Movie {
     public double getRating() {
         return rating;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "title='" + title + '\'' +
+                ", director='" + director + '\'' +
+                ", leadActor='" + leadActor + '\'' +
+                ", year=" + year +
+                ", runtime=" + runtime +
+                ", rating=" + rating +
+                '}';
+    }
 }

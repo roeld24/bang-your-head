@@ -1,23 +1,27 @@
 package ch.supsi.mavendemo.core.app;
 
 import ch.supsi.mavendemo.core.core.*;
+import ch.supsi.mavendemo.core.io.CsvManager;
 import ch.supsi.mavendemo.core.model.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static ch.supsi.mavendemo.core.core.MovieStats.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Movie> movies = List.of(
-                new Movie("Inception", "Christopher Nolan", "Leonardo DiCaprio", 2010, 148, 8.8),
-                new Movie("The Dark Knight", "Christopher Nolan", "Christian Bale", 2008, 152, 9.0),
-                new Movie("Interstellar", "Christopher Nolan", "Matthew McConaughey", 2014, 169, 8.6),
-                new Movie("Titanic", "James Cameron", "Leonardo DiCaprio", 1997, 195, 8.8),
-                new Movie("Avatar", "James Cameron", "Sam Worthington", 2009, 162, 9.1),
-                new Movie("CIAO", "James Cameron", "Sam Worthington", 2009, 162, 8.6)
-        );
+        CsvManager csvManager = new CsvManager();
+        List<Movie> movieList = new ArrayList<>();
 
-        System.out.println(MovieStats.bestDirector(movies));
+        csvManager.readCsv("files/imdb_top_1000.csv", movieList);
 
+        /*for(Movie movie : movieList){
+            System.out.println(movie);
+        }*/
+
+        System.out.println(totalMovies(movieList));
+        System.out.println(averageRuntime(movieList));
+        System.out.println(bestDirector(movieList));
     }
 }
