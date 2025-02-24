@@ -1,4 +1,4 @@
-package ch.supsi.mavendemo.core.core;
+package ch.supsi.mavendemo.core.model;
 
 public class Movie {
     private String title;
@@ -6,13 +6,15 @@ public class Movie {
     private String leadActor;
     private int year;
     private int runtime;
+    private double rating;
 
-    public Movie(String title, String director, String leadActor, int year, int runtime) {
+    public Movie(String title, String director, String leadActor, int year, int runtime, double rating) {
         this.title = title;
         this.director = director;
         this.leadActor = leadActor;
         this.year = year;
         this.runtime = runtime;
+        this.rating = rating;
     }
 
     public String getTitle() {
@@ -33,5 +35,9 @@ public class Movie {
 
     public int getRuntime() {
         return runtime;
+    }
+
+    public double getRating() {
+        return rating;
     }
 }
