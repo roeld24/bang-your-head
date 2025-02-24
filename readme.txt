@@ -6,8 +6,11 @@ takes the input le path and the output le path from a user’s preferences le
 runs as a stand-alone executable, from the command line (i.e., there is no GUI)
 runs transparently on both MS-Windows, MacOS, and GNU/Linux
 
-* total number of movies, average movies run-time, best director, most present actor/actress, and most
-productive year
+* total number of movies
+average movies run-time
+best director (highest average of the movies, for equals ratings we take the first one)
+most present actor/actress,
+and most productive year
 
 //core, package
 Gestisce la lettura e scrittura dei file CSV.
