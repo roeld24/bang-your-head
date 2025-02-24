@@ -1,0 +1,3 @@
+Total number of movies: 1000
+Average movie runtime: 122.891
+Best director: Frank Darabont

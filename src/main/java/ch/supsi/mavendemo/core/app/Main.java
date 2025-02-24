@@ -29,10 +29,13 @@ public class Main {
 
         StringBuilder sb = new StringBuilder();
 
+        sb.append("Total number of movies: ");
         sb.append(totalMovies(movieList));
         sb.append('\n');
+        sb.append("Average movie runtime: ");
         sb.append(averageRuntime(movieList));
         sb.append('\n');
+        sb.append("Best director: ");
         sb.append(bestDirector(movieList));
         sb.append('\n');
 
