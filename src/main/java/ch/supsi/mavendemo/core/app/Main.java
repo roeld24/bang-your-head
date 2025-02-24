@@ -1,6 +1,7 @@
 package ch.supsi.mavendemo.core.app;
 
 import ch.supsi.mavendemo.core.core.*;
+import ch.supsi.mavendemo.core.model.Movie;
 
 import java.util.List;
 

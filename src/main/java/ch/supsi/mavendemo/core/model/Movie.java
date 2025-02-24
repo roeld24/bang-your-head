@@ -1,4 +1,4 @@
-package ch.supsi.mavendemo.core.core;
+package ch.supsi.mavendemo.core.model;
 
 public class Movie {
     private String title;
