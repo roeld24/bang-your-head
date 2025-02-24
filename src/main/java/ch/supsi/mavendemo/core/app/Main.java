@@ -29,12 +29,9 @@ public class Main {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append(totalMovies(movieList));
-        sb.append('\n');
-        sb.append(averageRuntime(movieList));
-        sb.append('\n');
-        sb.append(bestDirector(movieList));
-        sb.append('\n');
+        sb.append(totalMovies(movieList)).append('\n');
+        sb.append(averageRuntime(movieList)).append('\n');
+        sb.append(bestDirector(movieList)).append('\n');
 
         ioManager.writeFile(outputPath.toAbsolutePath().toString(), sb.toString());
 
