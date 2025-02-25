@@ -1,5 +1,6 @@
 package ch.supsi.mavendemo.core.io;
 
+import ch.supsi.mavendemo.core.core.MovieStats;
 import ch.supsi.mavendemo.core.model.Movie;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -54,5 +55,21 @@ public class IOManager {
             throw new RuntimeException(e);
         }
         return "";
+    }
+
+    public String generateStats(List<Movie> movies) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Total number of movies: ");
+        sb.append(MovieStats.totalMovies(movies));
+        sb.append('\n');
+        sb.append("Average movie runtime: ");
+        sb.append(MovieStats.averageRuntime(movies));
+        sb.append('\n');
+        sb.append("Best director: ");
+        sb.append(MovieStats.bestDirector(movies));
+        sb.append('\n');
+
+        return sb.toString();
     }
 }

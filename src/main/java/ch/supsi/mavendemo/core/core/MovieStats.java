@@ -33,8 +33,4 @@ public class MovieStats {
                 .map(Map.Entry::getKey)
                 .orElse("Unknown");
     }
-
-    public static String monstPresentActor(List<Movie> movies){
-        //should we check just the leadActor or all of them ?
-    }
 }
