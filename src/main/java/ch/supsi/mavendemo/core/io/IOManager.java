@@ -17,11 +17,15 @@ public class IOManager {
             for (CSVRecord record : csvRecords) {
                 String title = record.get("Series_Title");
                 String director = record.get("Director");
-                String leadActor = record.get("Star1");
+                String star1 = record.get("Star1");
+                String star2 = record.get("Star2");
+                String star3 = record.get("Star3");
+                String star4 = record.get("Star4");
                 int year = Integer.parseInt(record.get("Released_Year"));
                 int runtime = Integer.parseInt(record.get("Runtime").split(" ")[0]);
                 double rating = Double.parseDouble(record.get("IMDB_Rating"));
-                movies.add(new Movie(title,director,leadActor,year,runtime, rating));
+
+                movies.add(new Movie(title,director,star1,star2,star3,star4,year,runtime, rating));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

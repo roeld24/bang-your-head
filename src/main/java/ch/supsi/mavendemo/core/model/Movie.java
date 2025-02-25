@@ -3,18 +3,24 @@ package ch.supsi.mavendemo.core.model;
 public class Movie {
     private String title;
     private String director;
-    private String leadActor;
     private int year;
     private int runtime;
     private double rating;
+    private String star1;
+    private String star2;
+    private String star3;
+    private String star4;
 
-    public Movie(String title, String director, String leadActor, int year, int runtime, double rating) {
+    public Movie(String title, String director,String star1, String star2, String star3, String star4, int year, int runtime, double rating) {
         this.title = title;
         this.director = director;
-        this.leadActor = leadActor;
         this.year = year;
         this.runtime = runtime;
         this.rating = rating;
+        this.star1 = star1;
+        this.star2 = star2;
+        this.star3 = star3;
+        this.star4 = star4;
     }
 
     public String getTitle() {
@@ -23,10 +29,6 @@ public class Movie {
 
     public String getDirector() {
         return director;
-    }
-
-    public String getLeadActor() {
-        return leadActor;
     }
 
     public int getYear() {
@@ -41,15 +43,34 @@ public class Movie {
         return rating;
     }
 
+    public String getStar1() {
+        return star1;
+    }
+
+    public String getStar2() {
+        return star2;
+    }
+
+    public String getStar3() {
+        return star3;
+    }
+
+    public String getStar4() {
+        return star4;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
                 "title='" + title + '\'' +
                 ", director='" + director + '\'' +
-                ", leadActor='" + leadActor + '\'' +
                 ", year=" + year +
                 ", runtime=" + runtime +
                 ", rating=" + rating +
+                ", star1='" + star1 + '\'' +
+                ", star2='" + star2 + '\'' +
+                ", star3='" + star3 + '\'' +
+                ", star4='" + star4 + '\'' +
                 '}';
     }
 }
