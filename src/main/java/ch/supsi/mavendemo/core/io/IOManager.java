@@ -60,15 +60,13 @@ public class IOManager {
     public String generateStats(List<Movie> movies) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Total number of movies: ");
-        sb.append(MovieStats.totalMovies(movies));
+        sb.append("Total_Movies,");
+        sb.append("Runtime_Avg,");
+        sb.append("Best_Director");
         sb.append('\n');
-        sb.append("Average movie runtime: ");
-        sb.append(MovieStats.averageRuntime(movies));
-        sb.append('\n');
-        sb.append("Best director: ");
+        sb.append(MovieStats.totalMovies(movies)).append(',');
+        sb.append(MovieStats.averageRuntime(movies)).append(',');
         sb.append(MovieStats.bestDirector(movies));
-        sb.append('\n');
 
         return sb.toString();
     }
