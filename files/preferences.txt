@@ -1,2 +1,2 @@
-C:\Users\masci\Documents\Scuola\Ingegneria del Software\Progetti\files\imdb_top_1000.csv
-C:\Users\masci\Documents\Scuola\Ingegneria del Software\Progetti\files\output.csv
+C:\Users\roeld\Desktop\supsi23-24\ingegneria del software\laboratorio\bang-your-head\files\imdb_top_1000.csv
+C:\Users\roeld\Desktop\supsi23-24\ingegneria del software\laboratorio\bang-your-head\files\output.csv

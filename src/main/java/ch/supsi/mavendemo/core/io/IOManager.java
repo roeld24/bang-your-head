@@ -25,7 +25,7 @@ public class IOManager {
                 int runtime = Integer.parseInt(record.get("Runtime").split(" ")[0]);
                 double rating = Double.parseDouble(record.get("IMDB_Rating"));
 
-                movies.add(new Movie(title,director,star1,star2,star3,star4,year,runtime, rating));
+                movies.add(new Movie(title,director,star1,star2,star3,star4,year,runtime,rating));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -67,10 +67,12 @@ public class IOManager {
         sb.append("Total_Movies,");
         sb.append("Runtime_Avg,");
         sb.append("Best_Director");
+        sb.append("Most_Present_Actor");
         sb.append('\n');
         sb.append(MovieStats.totalMovies(movies)).append(',');
         sb.append(MovieStats.averageRuntime(movies)).append(',');
-        sb.append(MovieStats.bestDirector(movies));
+        sb.append(MovieStats.bestDirector(movies)).append(',');
+        sb.append(MovieStats.mostPresentActor(movies));
 
         return sb.toString();
     }
