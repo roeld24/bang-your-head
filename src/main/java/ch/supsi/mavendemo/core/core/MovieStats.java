@@ -35,25 +35,19 @@ public class MovieStats {
     }
 
     public static String mostPresentActor(List<Movie> movies) {
-        Map<String, Integer> actorCount = new HashMap<>();
-
-        for (Movie movie : movies) {
-            countActor(actorCount, movie.getStar1());
-            countActor(actorCount, movie.getStar2());
-            countActor(actorCount, movie.getStar3());
-            countActor(actorCount, movie.getStar4());
-        }
+        Map<String, Long> actorCount = movies.stream()
+                .flatMap(movie -> movie.getStars().stream())  // Usa la lista di attori (stars)
+                .filter(Objects::nonNull)
+                .filter(actor -> !actor.isBlank())
+                .collect(Collectors.groupingBy(
+                        actor -> actor,
+                        Collectors.counting()
+                ));
 
         return actorCount.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .orElse("Unknown");
-    }
-
-    private static void countActor(Map<String, Integer> actorCount, String actor) {
-        if (actor != null && !actor.isBlank()) {
-            actorCount.put(actor, actorCount.getOrDefault(actor, 0) + 1);
-        }
     }
 
     public static int getMostProductiveYear(List<Movie> movies) {

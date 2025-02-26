@@ -1,26 +1,29 @@
 package ch.supsi.mavendemo.core.model;
 
+import java.util.Collections;
+import java.util.List;
+
 public class Movie {
     private final String title;
     private final String director;
     private final int year;
     private final int runtime;
     private final double rating;
-    private final String star1;
-    private final String star2;
-    private final String star3;
-    private final String star4;
+   private final List<String> stars;
 
-    public Movie(String title, String director,String star1, String star2, String star3, String star4, int year, int runtime, double rating) {
+    public Movie(String title, String director, List<String> stars, int year, int runtime, double rating) {
+        if (title == null || director == null || stars == null || stars.isEmpty()) {
+            throw new IllegalArgumentException("Title, director, and stars must not be null or empty.");
+        }
+        if (year <= 1890 || runtime <= 0 || rating < 0 || rating > 10) {
+            throw new IllegalArgumentException("Invalid year, runtime, or rating value.");
+        }
         this.title = title;
         this.director = director;
         this.year = year;
         this.runtime = runtime;
         this.rating = rating;
-        this.star1 = star1;
-        this.star2 = star2;
-        this.star3 = star3;
-        this.star4 = star4;
+        this.stars = List.copyOf(stars);
     }
 
     public String getTitle() {
@@ -43,20 +46,8 @@ public class Movie {
         return rating;
     }
 
-    public String getStar1() {
-        return star1;
-    }
-
-    public String getStar2() {
-        return star2;
-    }
-
-    public String getStar3() {
-        return star3;
-    }
-
-    public String getStar4() {
-        return star4;
+    public List<String> getStars() {
+        return Collections.unmodifiableList(stars);
     }
 
     @Override
@@ -67,10 +58,7 @@ public class Movie {
                 ", year=" + year +
                 ", runtime=" + runtime +
                 ", rating=" + rating +
-                ", star1='" + star1 + '\'' +
-                ", star2='" + star2 + '\'' +
-                ", star3='" + star3 + '\'' +
-                ", star4='" + star4 + '\'' +
+                ", stars=" + stars +
                 '}';
     }
 }
