@@ -8,6 +8,7 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class IOManager {
     public void readCsv(String path, List<Movie> movies){
@@ -83,10 +84,20 @@ public class IOManager {
         sb.append('\n');
         sb.append(MovieStats.totalMovies(movies)).append(',');
         sb.append(MovieStats.averageRuntime(movies)).append(',');
-        sb.append(MovieStats.bestDirector(movies)).append(',');
-        sb.append(MovieStats.mostPresentActor(movies)).append(',');
-        sb.append(MovieStats.getMostProductiveYear(movies));
 
+        Optional<String> bestDirector = MovieStats.bestDirector(movies);
+        bestDirector.ifPresentOrElse(
+                director -> sb.append(director).append(','),
+                () -> sb.append("Unknown").append(',')
+        );
+
+        Optional<String> mostPresentActor = MovieStats.mostPresentActor(movies);
+        mostPresentActor.ifPresentOrElse(
+                actor -> sb.append(actor).append(','),        
+                () -> sb.append("Unknown").append(',')
+        );
+
+        sb.append(MovieStats.getMostProductiveYear(movies));
         System.out.println("Statistics successfully generated.");
         return sb.toString();
     }

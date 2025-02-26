@@ -21,7 +21,7 @@ public class MovieStats {
     }
 
     //best director
-    public static String bestDirector(List<Movie> movies) {
+    public static Optional<String> bestDirector(List<Movie> movies) {
         return movies.stream()
                 .collect(Collectors.groupingBy(
                         Movie::getDirector,
@@ -30,11 +30,11 @@ public class MovieStats {
                 .entrySet()
                 .stream()
                 .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse("Unknown");
+                .map(Map.Entry::getKey);
     }
 
-    public static String mostPresentActor(List<Movie> movies) {
+
+    public static Optional<String> mostPresentActor(List<Movie> movies) {
         Map<String, Long> actorCount = movies.stream()
                 .flatMap(movie -> movie.getStars().stream())  // Usa la lista di attori (stars)
                 .filter(Objects::nonNull)
@@ -46,9 +46,9 @@ public class MovieStats {
 
         return actorCount.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse("Unknown");
+                .map(Map.Entry::getKey);
     }
+
 
     public static int getMostProductiveYear(List<Movie> movies) {
         Map<Integer, Integer> yearCount = new HashMap<>();
