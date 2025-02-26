@@ -93,7 +93,7 @@ public class IOManager {
 
         Optional<String> mostPresentActor = MovieStats.mostPresentActor(movies);
         mostPresentActor.ifPresentOrElse(
-                actor -> sb.append(actor).append(','),        
+                actor -> sb.append(actor).append(','),
                 () -> sb.append("Unknown").append(',')
         );
 
