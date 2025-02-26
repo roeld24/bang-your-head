@@ -4,7 +4,6 @@ import ch.supsi.mavendemo.core.core.MovieStats;
 import ch.supsi.mavendemo.core.model.Movie;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +40,16 @@ public class IOManager {
     }
 
     public void writeFile(String path, String text){
+        File file = new File(path);
+        boolean fileExists = file.exists();
+
+        if (file.exists()) {
+            System.out.println("Overwriting the output file...");
+        } else {
+            System.out.println("Writing the output file...");
+        }
+
         try (Writer out = new FileWriter(path)) {
-            File file = new File(path);
-            if (file.exists()) {
-                System.out.println("Overwriting the output file...");
-            } else {
-                System.out.println("Writing the output file...");
-            }
             out.write(text);
             System.out.println("Output successfully written to " + path);
         } catch (IOException e) {

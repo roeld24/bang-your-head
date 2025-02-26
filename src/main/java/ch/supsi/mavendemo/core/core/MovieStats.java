@@ -1,7 +1,6 @@
 package ch.supsi.mavendemo.core.core;
 
 import ch.supsi.mavendemo.core.model.Movie;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
