@@ -11,11 +11,8 @@ import java.util.List;
 
 public class IOManager {
     public void readCsv(String path, List<Movie> movies){
-        try {
-            System.out.println("looking for file to read...");
-            Reader in = new FileReader(path);
+        try (Reader in = new FileReader(path)){
             System.out.println("Reading from " + path);
-            System.out.println("Reading CSV file...");
             List<CSVRecord> csvRecords = CSVFormat.DEFAULT.withHeader().parse(in).getRecords();
 
             for (CSVRecord record : csvRecords) {
@@ -30,48 +27,48 @@ public class IOManager {
                 int runtime = Integer.parseInt(record.get("Runtime").split(" ")[0]);
                 double rating = Double.parseDouble(record.get("IMDB_Rating"));
 
-                movies.add(new Movie(title, director, stars, year, runtime, rating));
+                try {
+                    movies.add(new Movie(title, director, stars, year, runtime, rating));
+                } catch (IllegalArgumentException e) {
+                    // Se ci sono dati non validi, registriamo un messaggio di errore
+                    System.out.println("Error processing movie: " + title + " - " + e.getMessage());
+                }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error reading CSV file: " + path, e);
         }
     }
 
     public void writeFile(String path, String text){
-        try {
+        try (Writer out = new FileWriter(path)) {
             File file = new File(path);
             if (file.exists()) {
                 System.out.println("Overwriting the output file...");
             } else {
                 System.out.println("Writing the output file...");
             }
-            Writer out = new FileWriter(file);
             out.write(text);
-            out.close();
             System.out.println("Output successfully written to " + path);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error writing to file: " + path, e);
         }
     }
 
     public String getPreferences(){
-        try {
-            System.out.println("Reading preferences file path...");
-            BufferedReader br = new BufferedReader(new FileReader("files/preferences.txt"));
-
+        try(BufferedReader br = new BufferedReader(new FileReader("files/preferences.txt"))) {
             String in = br.readLine(); // Read first line
             String out = br.readLine(); // Read second line
 
-            if (in.isBlank() || out.isBlank()) {
+            if (in == null || out == null || in.isBlank() || out.isBlank()) {
                 System.out.println("Preferences file is not complete");
+                return "";
             } else {
                 System.out.println("Preferences successfully read.");
                 return in + "," + out;
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error reading preferences file.", e);
         }
-        return "";
     }
 
     public String generateStats(List<Movie> movies) {
