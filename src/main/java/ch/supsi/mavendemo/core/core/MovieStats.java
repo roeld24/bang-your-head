@@ -8,12 +8,12 @@ import java.util.stream.Collectors;
 public class MovieStats {
 
     //return the number of movies present in the list
-    public static int totalMovies(List<Movie> movies){
+    public static int totalMovies(List<Movie> movies) {
         return movies.size();
     }
 
     //average movies runtime
-    public static double averageRuntime(List<Movie> movies){
+    public static double averageRuntime(List<Movie> movies) {
         return movies.stream()
                 .mapToInt(Movie::getRuntime)
                 .average()
@@ -21,7 +21,7 @@ public class MovieStats {
     }
 
     //best director
-    public static String bestDirector(List<Movie> movies){
+    public static String bestDirector(List<Movie> movies) {
         return movies.stream()
                 .collect(Collectors.groupingBy(
                         Movie::getDirector,
@@ -34,10 +34,10 @@ public class MovieStats {
                 .orElse("Unknown");
     }
 
-    public static String mostPresentActor(List<Movie> movies){
+    public static String mostPresentActor(List<Movie> movies) {
         Map<String, Integer> actorCount = new HashMap<>();
 
-        for(Movie movie : movies){
+        for (Movie movie : movies) {
             countActor(actorCount, movie.getStar1());
             countActor(actorCount, movie.getStar2());
             countActor(actorCount, movie.getStar3());
@@ -54,5 +54,17 @@ public class MovieStats {
         if (actor != null && !actor.isBlank()) {
             actorCount.put(actor, actorCount.getOrDefault(actor, 0) + 1);
         }
+    }
+
+    public static int getMostProductiveYear(List<Movie> movies) {
+        Map<Integer, Integer> yearCount = new HashMap<>();
+
+        //count number of flims for each year
+        for (Movie movie : movies) {
+            int year = movie.getYear();
+            yearCount.put(year, yearCount.getOrDefault(year, 0) + 1);
+        }
+
+        return Collections.max(yearCount.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 }
