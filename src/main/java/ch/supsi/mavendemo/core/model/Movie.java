@@ -1,15 +1,15 @@
 package ch.supsi.mavendemo.core.model;
 
 public class Movie {
-    private String title;
-    private String director;
-    private int year;
-    private int runtime;
-    private double rating;
-    private String star1;
-    private String star2;
-    private String star3;
-    private String star4;
+    private final String title;
+    private final String director;
+    private final int year;
+    private final int runtime;
+    private final double rating;
+    private final String star1;
+    private final String star2;
+    private final String star3;
+    private final String star4;
 
     public Movie(String title, String director,String star1, String star2, String star3, String star4, int year, int runtime, double rating) {
         this.title = title;
