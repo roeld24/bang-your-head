@@ -39,17 +39,28 @@ public class IOManager {
         }
     }
 
-    public void writeFile(String path, String text){
+    public void writeFile(String path, String text) {
         File file = new File(path);
+        File parentDir = file.getParentFile();
+
+        //we are checking if the directories exist, if not they'll be created
+        if (parentDir != null && !parentDir.exists()) {
+            if (parentDir.mkdirs()) {
+                System.out.println("Created missing directories: " + parentDir.getAbsolutePath());
+            } else {
+                throw new RuntimeException("Failed to create directories for: " + path);
+            }
+        }
+
         boolean fileExists = file.exists();
 
-        if (file.exists()) {
+        if (fileExists) {
             System.out.println("Overwriting the output file...");
         } else {
             System.out.println("Writing the output file...");
         }
 
-        try (Writer out = new FileWriter(path)) {
+        try (Writer out = new FileWriter(file)) {
             out.write(text);
             System.out.println("Output successfully written to " + path);
         } catch (IOException e) {
