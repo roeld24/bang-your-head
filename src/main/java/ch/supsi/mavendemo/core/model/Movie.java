@@ -9,10 +9,10 @@ public class Movie {
     private final int year;
     private final int runtime;
     private final double rating;
-   private final List<String> stars;
+    private final List<String> stars;
 
     public Movie(String title, String director, List<String> stars, int year, int runtime, double rating) {
-        if (title == null || director == null || stars == null || stars.isEmpty()) {
+        if (title == null || director == null || title.isBlank() || director.isBlank() || stars == null || stars.isEmpty() ) {
             throw new IllegalArgumentException("Title, director, and stars must not be null or empty.");
         }
         if (year <= 1890 || runtime <= 0 || rating < 0 || rating > 10) {
@@ -24,10 +24,6 @@ public class Movie {
         this.runtime = runtime;
         this.rating = rating;
         this.stars = List.copyOf(stars);
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public String getDirector() {
