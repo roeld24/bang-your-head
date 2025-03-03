@@ -5,7 +5,11 @@ import ch.supsi.mavendemo.core.model.Movie;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +39,7 @@ public class IOManager {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error reading CSV file: " + path, e);
+            System.err.println("Error reading CSV file: " + path);
         }
     }
 
@@ -48,7 +52,7 @@ public class IOManager {
             if (parentDir.mkdirs()) {
                 System.out.println("Created missing directories: " + parentDir.getAbsolutePath());
             } else {
-                throw new RuntimeException("Failed to create directories for: " + path);
+                System.err.println("Failed to create directories for: " + path);
             }
         }
 
@@ -64,25 +68,31 @@ public class IOManager {
             out.write(text);
             System.out.println("Output successfully written to " + path);
         } catch (IOException e) {
-            throw new RuntimeException("Error writing to file: " + path, e);
+            System.err.println("Error writing to file: " + path);
         }
     }
 
-    public String getPreferences(){
-        try(BufferedReader br = new BufferedReader(new FileReader("files/preferences.txt"))) {
-            String in = br.readLine(); // Read first line
-            String out = br.readLine(); // Read second line
+    public Path[] getPreferences() throws IOException{
+        BufferedReader br = new BufferedReader(new FileReader("files/preferences.txt"));
+        String in = br.readLine(); // Read first line
+        String out = br.readLine(); // Read second line
 
-            if (in == null || out == null || in.isBlank() || out.isBlank()) {
-                System.out.println("Preferences file is not complete");
-                return "";
-            } else {
-                System.out.println("Preferences successfully read.");
-                return in + "," + out;
+        if (in == null || out == null || in.isBlank() || out.isBlank()) {
+            //System.err.println("Preferences file is not complete");
+            throw new IOException("Preferences file is not complete");
+        } else {
+            System.out.println("Preferences successfully read.");
+            Path[] paths = {Paths.get(in),Paths.get(out)};
+            if (paths.length != 2) {
+                //System.err.println("Invalid preferences file format, there should be 2 paths");
+                throw new IOException("Invalid preferences file format, there should be 2 paths");
             }
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading preferences file.", e);
+            if (!Files.exists(paths[0])) {
+                throw new IOException("Input file does not exist: " + paths[0]);
+            }
+            return paths;
         }
+
     }
 
     public String generateStats(List<Movie> movies) {
