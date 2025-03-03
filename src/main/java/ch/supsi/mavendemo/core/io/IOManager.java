@@ -39,7 +39,7 @@ public class IOManager {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error reading CSV file: " + path);
+            System.err.println("Error reading CSV file: " + path + "check it exists and corresponds to the prefered path");
         }
     }
 
