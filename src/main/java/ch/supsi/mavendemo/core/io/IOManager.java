@@ -4,12 +4,12 @@ import ch.supsi.mavendemo.core.core.MovieStats;
 import ch.supsi.mavendemo.core.model.Movie;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Optional;
 

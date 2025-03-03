@@ -4,12 +4,9 @@ import ch.supsi.mavendemo.core.io.IOManager;
 import ch.supsi.mavendemo.core.model.Movie;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class Main {
     public static void main(String[] args) {
