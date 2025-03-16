@@ -76,12 +76,12 @@ public class IOManager {
     public Path[] getPreferences() throws IOException{
         String home = System.getProperty("user.home");
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("input", "Mario");
-        jsonObject.put("output", "Rossi");
-
-        Path path = Paths.get(home, "preferences.txt");
+        Path path = Paths.get(home, "preferences.json");
         if(!Files.exists(path)){
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("input", "Mario");
+            jsonObject.put("output", "Rossi");
+
             Writer writeFile = new FileWriter(String.valueOf(path));
             writeFile.write(jsonObject.toString(4));
             writeFile.flush();
