@@ -4,6 +4,7 @@ import ch.supsi.mavendemo.core.core.MovieStats;
 import ch.supsi.mavendemo.core.model.Movie;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -73,18 +74,31 @@ public class IOManager {
     }
 
     public Path[] getPreferences() throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader("files/preferences.txt"));
-        String in = br.readLine(); // Read first line
-        String out = br.readLine(); // Read second line
+        String home = System.getProperty("user.home");
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("input", "Mario");
+        jsonObject.put("output", "Rossi");
+
+        Path path = Paths.get(home, "preferences.txt");
+        if(!Files.exists(path)){
+            Writer writeFile = new FileWriter(String.valueOf(path));
+            writeFile.write(jsonObject.toString(4));
+            writeFile.flush();
+        }
+
+        String content = new String(Files.readAllBytes(path));
+        JSONObject preferences = new JSONObject(content);
+
+        String in = preferences.getString("input");
+        String out = preferences.getString("output");
 
         if (in == null || out == null || in.isBlank() || out.isBlank()) {
-            //System.err.println("Preferences file is not complete");
             throw new IOException("Preferences file is not complete");
         } else {
             System.out.println("Preferences successfully read.");
             Path[] paths = {Paths.get(in),Paths.get(out)};
             if (paths.length != 2) {
-                //System.err.println("Invalid preferences file format, there should be 2 paths");
                 throw new IOException("Invalid preferences file format, there should be 2 paths");
             }
             if (!Files.exists(paths[0])) {
